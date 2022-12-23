@@ -1,0 +1,142 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html>
+  <head>
+    <meta charset="ISO-8859-1" />
+    <title>Online Phone Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/eb0f12567c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <style type="text/css">
+    
+    *{
+    	transition : 0.33s all ;
+    }
+		.licked{
+	background-color: #ec407a !important;
+}
+.hide2{
+	top : -200px;
+	display : none;
+}
+.show2{
+	top : 85px;
+	display : block;
+}
+.hide{
+	display : none;
+}
+.show{
+	display : block;
+}
+
+
+*::-webkit-scrollbar-track
+{
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+*::-webkit-scrollbar
+{
+	width: 3px;
+	background-color: #92FE9D;
+}
+*::-webkit-scrollbar-thumb
+{
+	background-color : #C779D0;
+}
+.custome-text{
+	background-image : linear-gradient(135deg, #fc00ff, #00dbde);
+}
+    </style>
+    
+  <body class="overflow-hidden">
+    <!-- all code here -->
+    
+      <!-- Container -->
+      <div class="max-w-[1200px] h-[100vh] mx-auto relative">
+      	<!-- bar top -->
+    	<div
+    	class="pt-3 backdrop-blur-xl bg-transparent"
+    	w3-include-html="./topHeader.jsp"></div>
+    	
+    	 <!-- login form -->
+        <div w3-include-html="./login.jsp" id="login" class="bg-white p-4 rounded-xl shadow-xl absolute z-[500] right-[12px] hide2"></div>
+        
+        <!-- shoping cart -->
+    	<div w3-include-html="shoppingCart.jsp" id="panier" class="hide absolute z-[5001] -top-[30px] right-[15px]"></div>
+    	
+    	<!-- logOut -->
+    	<div w3-include-html="./logOut.jsp" id='modal' class="hidden"></div>
+    	
+    	<!-- main -->
+    	<main class="grid grid-cols-12 gap-x-4 mt-[25px] h-[80vh] ">
+    		<!-- Category -->
+    		<section class="col-span-2 h-[80vh] flex flex-col justify-center items-center" w3-include-html="./category.jsp"></section>
+    		
+    		<!-- main section -->
+    		<section class="col-span-10 h-[90vh] pb-[30px] overflow-y-auto">
+	    		<!-- header -->
+	    		<section w3-include-html="./hero.jsp"></section>
+	    		
+	    		<!-- products -->
+	    		<section w3-include-html="./products.jsp"></section>
+    		</section>
+    	</main>
+       
+      </div>
+      
+     
+    <!-- js -->
+    <script src="js/script.js"></script>
+    <script type="text/javascript">
+    //logOut
+    function toggleModal() {
+      document.getElementById('modal').classList.toggle('hidden')
+    } 
+
+    //have to log
+    function haveToLog(){
+    	alert("You have To Login or Register")
+    }
+    
+    function includeHTML() {
+    	  var z, i, elmnt, file, xhttp;
+    	  /* Loop through a collection of all HTML elements: */
+    	  z = document.getElementsByTagName("*");
+    	  for (i = 0; i < z.length; i++) {
+    	    elmnt = z[i];
+    	    /*search for elements with a certain atrribute:*/
+    	    file = elmnt.getAttribute("w3-include-html");
+    	    if (file) {
+    	      /* Make an HTTP request using the attribute value as the file name: */
+    	      xhttp = new XMLHttpRequest();
+    	      xhttp.onreadystatechange = function () {
+    	        if (this.readyState == 4) {
+    	          if (this.status == 200) {
+    	            elmnt.innerHTML = this.responseText;
+    	          }
+    	          if (this.status == 404) {
+    	            elmnt.innerHTML = "Page not found.";
+    	          }
+    	          /* Remove the attribute, and call this function once more: */
+    	          elmnt.removeAttribute("w3-include-html");
+    	          includeHTML();
+    	        }
+    	      };
+    	      xhttp.open("GET", file, true);
+    	      xhttp.send();
+    	      /* Exit the function: */
+    	      return;
+    	    }
+    	  }
+    	}
+    includeHTML();
+    
+
+
+    </script>
+    <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js" charset="utf-8"></script>
+  </body>
+</html>
